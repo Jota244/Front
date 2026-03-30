@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Organizado v2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 p-10 font-sans">
+
+    <h1 class="text-2xl font-bold mb-8 text-center text-slate-800">Cadastro de Loja (Refatorado)</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-bold mb-4">Produtos</h2>
+            <input type="text" id="input-produto" class="border p-2 w-full mb-2" placeholder="Nome do produto">
+            <button onclick="adicionarItem('input-produto', 'lista-produtos', produtos)" class="bg-blue-500 text-white p-2 w-full rounded">Adicionar Produto</button>
+            <ul id="lista-produtos" class="mt-4 text-sm text-slate-600"></ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-bold mb-4">Clientes</h2>
+            <input type="text" id="input-cliente" class="border p-2 w-full mb-2" placeholder="Nome do cliente">
+            <button onclick="adicionarItem('input-cliente', 'lista-clientes', clientes)" class="bg-green-500 text-white p-2 w-full rounded">Adicionar Cliente</button>
+            <ul id="lista-clientes" class="mt-4 text-sm text-slate-600"></ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-bold mb-4">Fornecedores</h2>
+            <input type="text" id="input-fornecedor" class="border p-2 w-full mb-2" placeholder="Nome do fornecedor">
+            <button onclick="adicionarItem('input-fornecedor', 'lista-fornecedores', fornecedores)" class="bg-purple-500 text-white p-2 w-full rounded">Adicionar Fornecedor</button>
+            <ul id="lista-fornecedores" class="mt-4 text-sm text-slate-600"></ul>
+        </div>
+    </div>
+
+    <script>
+        const produtos = [];
+        const clientes = [];
+        const fornecedores = [];
+
+        /**
+         * FUNÇÃO MESTRE: Encapsula a lógica de validação e inserção.
+         * Se você precisar mudar a regra de 3 para 5 caracteres, mudará apenas aqui!
+         */
+        function adicionarItem(idInput, idLista, arrayDados) {
+            const inputElement = document.querySelector(`#${idInput}`);
+            const listaElement = document.querySelector(`#${idLista}`);
+            const valor = inputElement.value.trim();
+
+            // Validação centralizada
+            if (valor !== "" && valor.length > 3) {
+                // Atualiza a fonte de dados (Array)
+                arrayDados.push(valor);
+                
+                // Atualiza a Interface (DOM)
+                listaElement.innerHTML += `<li>${valor}</li>`;
+                
+                // Limpa o campo
+                inputElement.value = "";
+                inputElement.focus();
+            } else {
+                alert("Nome inválido! O nome deve ter mais de 3 caracteres.");
+            }
+        }
+    </script>
+</body>
+</html>
